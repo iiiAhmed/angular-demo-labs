@@ -1,0 +1,14 @@
+.app-container {
+  display: flex;
+  justify-content: space-around;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+.products-section {
+  width: 60%;
+}
+
+.cart-section {
+  width: 35%;
+}
