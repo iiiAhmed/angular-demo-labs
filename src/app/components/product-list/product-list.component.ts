@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductComponent } from '../product/product.component';
 import { Product } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-list',
@@ -11,24 +13,11 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Laptop',
-      price: 1000,
-      priceAfterDiscount: 900,
-      photoUrl: 'https://static.vecteezy.com/system/resources/thumbnails/023/981/506/small/laptop-zoom-in-animation-computer-background-placeholder-video.jpg'
-    },
-    {
-      id: 2,
-      name: 'Phone',
-      price: 500,
-      priceAfterDiscount: 450,
-      photoUrl: 'https://png.pngtree.com/png-vector/20240708/ourmid/pngtree-blank-screen-phone-png-image_12848533.png'
-    }
-  ];
+  private cartService = inject(CartService);
+  private productService = inject(ProductService);
 
-  constructor(private cartService: CartService) { }
+  // Use toSignal to convert Observable to a signal
+  products = toSignal(this.productService.getProducts(), { initialValue: [] });
 
   onAddedToCart(product: Product) {
     this.cartService.addToCart(product);

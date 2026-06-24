@@ -21,6 +21,21 @@
   object-fit: cover;
 }
 
-.discount {
+.price-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.old-price {
+  color: #e53935;
+  text-decoration: line-through;
+  font-size: 0.9em;
+}
+
+.new-price {
   font-weight: bold;
+  font-size: 1.2em;
+  color: #2e7d32;
 }

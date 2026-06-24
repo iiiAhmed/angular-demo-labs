@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "price": 1000,
+    "priceAfterDiscount": 900,
+    "photoUrl": "https://static.vecteezy.com/system/resources/thumbnails/023/981/506/small/laptop-zoom-in-animation-computer-background-placeholder-video.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Phone",
+    "price": 500,
+    "priceAfterDiscount": 450,
+    "photoUrl": "https://png.pngtree.com/png-vector/20240708/ourmid/pngtree-blank-screen-phone-png-image_12848533.png"
+  }
+]

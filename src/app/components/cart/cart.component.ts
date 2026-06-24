@@ -1,7 +1,7 @@
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { CartService } from '../../services/cart.service';
-import { Product } from '../../models/product.model';
+import { CartItem } from '../../models/cart-item.model';
 
 @Component({
   selector: 'app-cart',
@@ -11,9 +11,8 @@ import { Product } from '../../models/product.model';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  items: Signal<Product[]>;
+  private cartService = inject(CartService);
 
-  constructor(private cartService: CartService) {
-    this.items = this.cartService.getCartItems();
-  }
+  items: Signal<CartItem[]> = this.cartService.getCartItems();
+  grandTotal: Signal<number> = this.cartService.grandTotal;
 }
