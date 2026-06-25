@@ -1,0 +1,63 @@
+<div class="header-row">
+  <h2>Product Directory</h2>
+  <button class="btn btn-primary" routerLink="/products/new">Add New Product</button>
+</div>
+
+@if (products().length === 0) {
+  <div class="no-products">
+    No products found.
+  </div>
+}
+
+@if (products().length > 0) {
+  <div class="product-grid">
+    @for (prod of products(); track prod.id) {
+      <div 
+        class="product-card-routed" 
+        (click)="viewDetails(prod.id)"
+        [attr.aria-label]="'View details of ' + prod.name"
+        [attr.data-id]="prod.id"
+      >
+        <div class="photo-container">
+          <img [src]="prod.photoUrl" alt="product photo" />
+        </div>
+        <div class="info">
+          <h3>{{ prod.name }}</h3>
+          <div class="price-container">
+            <span class="old-price">{{ prod.price | currency }}</span>
+            <!-- Style binding based on price (green if discount exists) -->
+            <span 
+              class="new-price" 
+              [style.color]="prod.priceAfterDiscount < prod.price ? '#2ecc71' : '#333'"
+            >
+              {{ prod.priceAfterDiscount | currency }}
+            </span>
+            <!-- Custom pipe used here -->
+            @if (prod.priceAfterDiscount < prod.price) {
+              <span class="discount-badge">
+                {{ prod.price | discount: prod.priceAfterDiscount }}
+              </span>
+            }
+          </div>
+        </div>
+        <div class="actions">
+          <!-- Class binding using property binding instead of ngClass per best practices -->
+          <button 
+            class="btn" 
+            [class.btn-success]="true"
+            (click)="onAddToCart(prod, $event)"
+          >
+            Add to Cart
+          </button>
+          <button 
+            class="btn" 
+            [class.btn-secondary]="true"
+            (click)="editProduct(prod.id, $event)"
+          >
+            Edit
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

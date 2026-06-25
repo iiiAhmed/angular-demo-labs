@@ -1,8 +1,16 @@
+<app-header></app-header>
 <div class="app-container">
+  @if (isLoading()) {
+    <div class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  }
+
   <div class="products-section">
-    <app-product-list></app-product-list>
+    <router-outlet></router-outlet>
   </div>
   <div class="cart-section">
     <app-cart></app-cart>
   </div>
 </div>
+<app-footer></app-footer>

@@ -1,0 +1,46 @@
+@if (product()) {
+  <div class="details-container">
+    @let prod = product();
+    @if (prod) {
+      <div class="back-link">
+        <a routerLink="/products">&larr; Back to Products</a>
+      </div>
+      
+      <div class="details-card">
+        <div class="image-gallery">
+          <img [src]="prod.photoUrl" [attr.aria-label]="prod.name + ' image'" />
+        </div>
+        
+        <div class="details-info">
+          <h2>{{ prod.name }}</h2>
+          
+          <div class="price-box">
+            <div class="prices">
+              <span class="old-price">{{ prod.price | currency }}</span>
+              <span class="new-price" [style.color]="'#e74c3c'">{{ prod.priceAfterDiscount | currency }}</span>
+            </div>
+            @if (prod.priceAfterDiscount < prod.price) {
+              <span class="discount">
+                {{ prod.price | discount: prod.priceAfterDiscount }}
+              </span>
+            }
+          </div>
+
+          <p class="description">
+            This is a simulated description for {{ prod.name }}. It showcases high quality craftsmanship and superior performance.
+          </p>
+
+          <div class="actions">
+            <button class="btn btn-success" (click)="onAddToCart()">Add to Cart</button>
+            <button class="btn btn-secondary" (click)="editProduct()">Edit Product</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="no-details">
+    <h3>Product not found or failed to load.</h3>
+    <a routerLink="/products">Back to Directory</a>
+  </div>
+}

@@ -1,7 +1,7 @@
 import { Component, Signal, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { CartService } from '../../services/cart.service';
-import { CartItem } from '../../models/cart-item.model';
+import { CartService } from '../../../services/cart.service';
+import { CartItem } from '../../../models/cart-item.model';
 
 @Component({
   selector: 'app-cart',
@@ -15,4 +15,15 @@ export class CartComponent {
 
   items: Signal<CartItem[]> = this.cartService.getCartItems();
   grandTotal: Signal<number> = this.cartService.grandTotal;
+
+  onCheckout() {
+    this.cartService.checkoutCart().subscribe({
+      next: () => {
+        alert('Checkout successful!');
+      },
+      error: () => {
+        alert('Checkout failed!');
+      }
+    });
+  }
 }
